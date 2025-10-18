@@ -9,6 +9,7 @@ from collections import deque
 
 
 def resample_dataset(ds, target_res_m=20):
+    """Partly developed with ChatGPT."""
     # Check if CRS is available
     if not hasattr(ds.rio, 'crs') or ds.rio.crs is None:
         raise ValueError("Dataset has no CRS information")
@@ -52,7 +53,6 @@ def centered_subset(ds, dims=("y", "x"), fraction=1/1000):
     subset = ds
     ndims = len(dims)
 
-    # distribute fraction across dimensions (take sqrt for 2D, cube root for 3D, etc.)
     frac_per_dim = fraction ** (1 / ndims)
 
     for dim in dims:
@@ -65,7 +65,7 @@ def centered_subset(ds, dims=("y", "x"), fraction=1/1000):
 
 
 def crop_da_to_bbox(da: xr.DataArray, bbox: tuple[float, float, float, float]) -> xr.DataArray:
-    """
+    """Partly developed with ChatGPT.
     Fast bbox crop of an xarray.DataArray to a bounding box (EPSG:4326).
     No CRS conversion, no polygon masking—just a rectangular cut.
     """
@@ -133,6 +133,7 @@ def filter_files_by_aoi(file_list, aoi_gdf):
 
 
 def cluster_by_area_and_time(data: xr.Dataset, max_area: float = 3, max_time: int = 3) -> xr.DataArray:
+    """Partly developed with ChatGPT."""
 
     def day_diff(a, b, days_in_year=366):
         d = abs(int(a) - int(b))
